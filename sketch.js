@@ -3,52 +3,55 @@
 //========================
 
 //your sun/moon object:
-var Circle = {
+var circle1 = {
 	x: 500,
 	y: 300,
 	d: 500,
-	c: "#ffcc66"
+	c: "#ffcc66",
+	display: function(){
+		background("#99ccff");
+		noStroke();
+		fill(this.c);
+    ellipse(this.x,this.y,this.d,this.d);
+  }
 };
-
-
 //your building object:
-
-var Buildings = [];
 var Buildings2 = [];
-
-
-
 
 function setup() {
 	createCanvas(windowWidth, windowHeight);
-
-	for(var i = 0; i < 30 ;i = i+1){
- 		Buildings.push( new Build(i*random(30,100),height/2) );
-
-
-	}
+		for(var i = 0; i < 50 ;i = i+1){
+			Buildings2.push( new Tower2(random(0,width),(height*.75),random(10,45),random(25,300),random(150,200)) );
+		}
+		for(var i = 0; i < 75 ;i = i+1){
+			Buildings2.push( new Tower2(random(0,width),(height*.75),random(10,35),random(25,200),random(90,150)) );
+		}
+		for(var i = 0; i < 5 ;i = i+1){
+			Buildings2.push( new Tower2(random(0,width),(height*.75),random(20,30),random(100,375),random(75,125)) );
+		}
 }
 
 function draw(){
-
-	noStroke();
-	fill(Circle.c);
-	ellipse(Circle.x, Circle.y,Circle.d, Circle.d);
-
-	for(var i = 0; i < Buildings.length; i++){
-		Buildings[i].drawBuilding();
-
+	circle1.display();
+	for(var i = 0; i < Buildings2.length; i++){
+		Buildings2[i].drawTower2();
 	}
-
-
+	noStroke();
+	fill("white");
+	rect(0,height*.75,width,height*.25);
 }
 
-function Build(x,y){
+function Tower2(x,y,w,h,c){
 	this.x = x;
 	this.y = y;
-	this.drawBuilding = function(){
+	this.w = w;
+	this.h = h;
+	this.c = c;
+	this.drawTower2 = function(){
 		noStroke();
-		fill(50);
-		rect(this.x, this.y,25, 100);
+		fill(this.c);
+		rect(this.x, this.y-this.h, this.w, this.h);
+		stroke(this.c);
+		line(this.x+(this.w/2),this.y-this.h,this.x+(this.w/2),this.y-this.h-8);
 	}
 };
